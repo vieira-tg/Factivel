@@ -30,6 +30,7 @@ from PySide6.QtWidgets import (
     QWidget,
 )
 
+from core.formato import formatar_numero
 from core.modelo import STATUS_ILIMITADO, STATUS_INVIAVEL, STATUS_OTIMO
 from core.simplex import PassoSimplex, ResultadoSimplex, resolver_simplex
 
@@ -41,10 +42,10 @@ COR_OTIMO = "#c8e6c9"    # verde: tabela ótima
 
 
 def _fmt(v: float) -> str:
-    """Formata um float enxuto para célula do tableau."""
+    """Formata um float para célula do tableau (decimal limpo, sem truncar)."""
     if v == 0:
         return "0"
-    return f"{v:.4g}"
+    return formatar_numero(v)
 
 
 def _spinbox(valor: float = 0.0) -> QDoubleSpinBox:
@@ -290,7 +291,7 @@ class AbaSimplex(QWidget):
         termos = []
         for i, ci in enumerate(c, start=1):
             if ci != 0:
-                termos.append(f"{ci:g}·x{i}")
+                termos.append(f"{formatar_numero(ci)}·x{i}")
         self.rotulo_z.setText("Z = " + (" + ".join(termos) if termos else "0"))
 
     # ---------------------------------------------------------------- exemplos

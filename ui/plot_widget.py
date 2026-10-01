@@ -35,6 +35,7 @@ from PySide6.QtWidgets import (
     QWidget,
 )
 
+from core.formato import formatar_numero
 from core.geometria import TOL
 from core.modelo import (
     OP_MAX,
@@ -53,8 +54,8 @@ _PALETA = ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b"]
 
 
 def _formatar(x: float) -> str:
-    """Formata um float enxuto para exibição em rótulos."""
-    return f"{x:.4g}"
+    """Formata um float para exibição em rótulos (decimal limpo, sem truncar)."""
+    return formatar_numero(x)
 
 
 def _estr_linear(a1: float, a2: float) -> str:
@@ -68,7 +69,7 @@ def _estr_linear(a1: float, a2: float) -> str:
         if abs(abs(coef) - 1.0) < TOL:
             termos.append(f"{'-' if coef < 0 else ''}{var}")
         else:
-            termos.append(f"{coef:g}·{var}")
+            termos.append(f"{formatar_numero(coef)}·{var}")
 
     if not termos:
         return "0"

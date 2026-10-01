@@ -26,6 +26,7 @@ from dataclasses import dataclass, field
 
 import numpy as np
 
+from .formato import formatar_numero
 from .modelo import STATUS_ILIMITADO, STATUS_INVIAVEL, STATUS_OTIMO
 
 # Tolerância numérica (nunca comparar float com ==).
@@ -278,7 +279,7 @@ def _passo_com_destaque(reg: dict, extras: dict) -> dict:
     elif extras.get("destaque_pivo") is not None:
         sai = colunas[reg["base"][linha]]
         novo["texto"] = (
-            f"Fase {fase}, iteração {reg['iter']}: elemento pivô = {reg['pivo']:.4g} "
+            f"Fase {fase}, iteração {reg['iter']}: elemento pivô = {formatar_numero(reg['pivo'])} "
             f"(entra {colunas[col]}, sai {sai})."
         )
     elif extras.get("final_destaque"):
@@ -497,6 +498,6 @@ def resolver_simplex(
         status=STATUS_OTIMO,
         z_otimo=z_otimo,
         solucao=solucao_final,
-        mensagem=f"Solução ótima encontrada: Z = {z_otimo:.6f}.",
+        mensagem=f"Solução ótima encontrada: Z = {formatar_numero(z_otimo)}.",
         passos=_gerar_passos(registros),
     )

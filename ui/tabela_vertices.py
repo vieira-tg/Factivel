@@ -11,12 +11,13 @@ from PySide6.QtCore import Qt
 from PySide6.QtGui import QColor, QFont
 from PySide6.QtWidgets import QTableWidget, QTableWidgetItem
 
+from core.formato import formatar_numero
 from core.modelo import Resultado
 
 
 def _formatar(v: float) -> str:
-    """Formata um float enxuto (até 4 casas, sem zeros excedentes)."""
-    return f"{v:.4g}"
+    """Formata um float para exibição na tabela (decimal limpo, sem truncar)."""
+    return formatar_numero(v)
 
 
 class TabelaVertices(QTableWidget):

@@ -9,6 +9,8 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 
+from .formato import formatar_numero
+
 
 # Operadores aceitos em uma restrição. `<=` e `>=` definem semiplanos; `=` define
 # uma reta que obriga o ponto a pertencer exatamente a ela.
@@ -44,7 +46,10 @@ class Restricao:
         return self.a1 * x1 + self.a2 * x2
 
     def __str__(self) -> str:
-        return f"{self.a1:g}*x1 + {self.a2:g}*x2 {self.operador} {self.b:g}"
+        return (
+            f"{formatar_numero(self.a1)}*x1 + {formatar_numero(self.a2)}*x2 "
+            f"{self.operador} {formatar_numero(self.b)}"
+        )
 
 
 @dataclass

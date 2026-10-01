@@ -24,6 +24,7 @@ from itertools import combinations
 import numpy as np
 from scipy.optimize import linprog
 
+from .formato import formatar_numero
 from .geometria import (
     TOL,
     eh_viavel,
@@ -200,11 +201,11 @@ def resolver(
     if multiplas:
         mensagem = (
             f"Solução ótima múltipla: {len(vertices_otimos)} vértices atingem "
-            f"Z* = {z_otimo:.4f}. A aresta (ou face) que os une é toda ela ótima."
+            f"Z* = {formatar_numero(z_otimo)}. A aresta (ou face) que os une é toda ela ótima."
         )
     else:
         mensagem = (
-            f"Solução ótima encontrada em Z* = {z_otimo:.4f}."
+            f"Solução ótima encontrada em Z* = {formatar_numero(z_otimo)}."
         )
 
     return Resultado(
